@@ -2,14 +2,14 @@ package com.cai.seckill.pojo;
 
 public class User {
 
-    private Integer id;
+    private long id;
     private String name;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
