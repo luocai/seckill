@@ -12,6 +12,9 @@ public interface OrderDao {
     @SelectKey(keyColumn="id", keyProperty="id", resultType=long.class, before=false, statement="select last_insert_id()")
     long createOrder(Order order);
 
-    @Select("select * from miaosha_order where user_id=#{userId} and goods_id=#{goodsId}")
+    @Select("select * from order_info where user_id=#{userId} and goods_id=#{goodsId}")
     Order getByGoodsId(@Param("userId") long userId, @Param("goodsId") long goodsid);
+
+    @Select("select * from order_info where id = #{orderId}")
+    Order getByOrderId(long orderId);
 }

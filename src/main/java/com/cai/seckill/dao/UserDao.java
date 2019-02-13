@@ -1,19 +1,21 @@
 package com.cai.seckill.dao;
 
 import com.cai.seckill.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserDao {
 
 
-    void insert(User user);
+    @Select("select * from miaosha_user where id = #{id}")
+    public User getById(@Param("id")long id);
 
-    void update(User user);
+    @Update("update miaosha_user set password = #{password} where id = #{id}")
+    public void update(User toBeUpdate);
 
-    @Select("select * from user where id = #{id}")
-    User getById(Integer id);
+    @Select("select * from miaosha_user where mobile = #{mobile}")
+    User getByMobile(String mobile);
 
-    void deleteById(Integer id);
+    @Insert("insert into miaosha_user(password,salt,register_date,mobile) values (#{password}, #{salt},#{registerDate},#{mobile})")
+    void addUser(User user);
 }

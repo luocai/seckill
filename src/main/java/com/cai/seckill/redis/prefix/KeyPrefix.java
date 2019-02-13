@@ -1,4 +1,4 @@
-package com.cai.seckill.redis;
+package com.cai.seckill.redis.prefix;
 
 /*
   键前缀接口

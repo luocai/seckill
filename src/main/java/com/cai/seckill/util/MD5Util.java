@@ -10,23 +10,34 @@ public class MD5Util {
 
     private static final String salt ="1a2b3c4d";
 
-    //这个是在网络中传输的，哪怕被截获到了。反向获取的话还是找不到真正的密码的
+    /**
+     * 第一次MD5加密，用于网络传输
+     * @param inputPass
+     * @return
+     */
     public static String inputPassToFormPass(String inputPass){
+        //避免在网络传输被截取然后反推出密码，所以在md5加密前先打乱密码
+        String str = "" + salt.charAt(0) + salt.charAt(2) + inputPass + salt.charAt(5) + salt.charAt(4);
+        return md5(str);
+    }
 
-        //拼个串在做md5.当然这个拼接自定义的。
-        String str = ""+salt.charAt(0)+salt.charAt(2)+inputPass+salt.charAt(5)+salt.charAt(4);
+    /**
+     * 第二次MD5加密，用于存储到数据库
+     * @param formPass
+     * @param salt
+     * @return
+     */
+    public static String formPassToDBPass(String formPass, String salt) {
+        String str = ""+salt.charAt(0)+salt.charAt(2) + formPass +salt.charAt(5) + salt.charAt(4);
         return md5(str);
     }
-    //把传上来的密码加上随机 salt再次md5存入mysql
-    public static String formPassToDBPass(String formPass,String salt){
-        String str = ""+salt.charAt(0)+salt.charAt(2)+formPass+salt.charAt(5)+salt.charAt(4);
-        return md5(str);
-    }
-    //把明文二次MD5为存入数据库
-    public static String inputPassToDbPass(String input,String saltDB){
+
+    //合并
+    public static String inputPassToDbPass(String input, String saltDB){
         String formPass = inputPassToFormPass(input);
-        return formPassToDBPass(formPass,saltDB);
-
+        String dbPass = formPassToDBPass(formPass, saltDB);
+        return dbPass;
     }
+
 
 }

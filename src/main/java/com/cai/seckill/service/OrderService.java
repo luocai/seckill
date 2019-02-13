@@ -34,4 +34,8 @@ public class OrderService {
     public Order getOrderByGoodsId(long userId,long goodsid) {
         return orderDao.getByGoodsId(userId,goodsid);
     }
+
+    public Order getOrderById(long goodsid) {
+        return orderDao.getByOrderId(goodsid);
+    }
 }

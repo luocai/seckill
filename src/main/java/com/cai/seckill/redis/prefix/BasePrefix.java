@@ -1,4 +1,4 @@
-package com.cai.seckill.redis;
+package com.cai.seckill.redis.prefix;
 
 public class BasePrefix implements KeyPrefix {
     private int expireSeconds;
